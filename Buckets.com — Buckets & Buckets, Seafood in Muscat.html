@@ -45,6 +45,9 @@ section{padding:40px 0}
 footer{background:#2b2927;color:#fff3dc;text-align:center;padding:30px 18px;font-size:.9rem}
 .wa{position:fixed;right:16px;bottom:16px;width:56px;height:56px;border-radius:50%;background:#25d366;font-size:1.7rem;line-height:56px;text-align:center;text-decoration:none;box-shadow:0 4px 14px #0006;z-index:9;display:none}
 .pics{width:100%;height:auto;border-radius:12px;border:4px solid #2b2927;box-shadow:0 10px 0 var(--r)}
+.rl{position:relative;flex:0 0 min(240px,68vw);aspect-ratio:9/16;scroll-snap-align:start;border-radius:18px;overflow:hidden;background:#000;border:3px solid var(--ink);box-shadow:0 8px 20px #0004}
+.rl video{width:100%;height:100%;object-fit:cover;display:block;border:0;border-radius:0;box-shadow:none;flex:none}
+.pl{position:absolute;inset:0;margin:auto;width:66px;height:66px;border-radius:50%;background:#b0352add;color:#fff;border:3px solid #fff;font-size:1.7rem;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0 0 0 4px}
 </style>
 </head>
 <body>
@@ -92,12 +95,12 @@ footer{background:#2b2927;color:#fff3dc;text-align:center;padding:30px 18px;font
 <section id="reels"><div class="w">
 <h2 class="t" data-ar="ريلز">Reels</h2>
 <div class="reels">
-<video controls playsinline preload="none" poster="reel1.jpg" src="reel1.mp4"></video>
-<video controls playsinline preload="none" poster="reel2.jpg" src="reel2.mp4"></video>
-<video controls playsinline preload="none" poster="reel3.jpg" src="reel3.mp4"></video>
-<video controls playsinline preload="none" poster="reel4.jpg" src="reel4.mp4"></video>
-<video controls playsinline preload="none" poster="reel5.jpg" src="reel5.mp4"></video>
-<video controls playsinline preload="none" poster="reel6.jpg" src="reel6.mp4"></video>
+<div class="rl"><video playsinline preload="metadata" poster="reel1.jpg" src="reel1.mp4"></video><button class="pl" aria-label="Play">▶</button></div>
+<div class="rl"><video playsinline preload="metadata" poster="reel2.jpg" src="reel2.mp4"></video><button class="pl" aria-label="Play">▶</button></div>
+<div class="rl"><video playsinline preload="metadata" poster="reel3.jpg" src="reel3.mp4"></video><button class="pl" aria-label="Play">▶</button></div>
+<div class="rl"><video playsinline preload="metadata" poster="reel4.jpg" src="reel4.mp4"></video><button class="pl" aria-label="Play">▶</button></div>
+<div class="rl"><video playsinline preload="metadata" poster="reel5.jpg" src="reel5.mp4"></video><button class="pl" aria-label="Play">▶</button></div>
+<div class="rl"><video playsinline preload="metadata" poster="reel6.jpg" src="reel6.mp4"></video><button class="pl" aria-label="Play">▶</button></div>
 </div>
 <p style="text-align:center"><a class="btn b2" href="https://www.instagram.com/bucketsandbucketsom?stkn=MWd3MHViNjhiMTY3eQ==" target="_blank" rel="noopener" data-ar="▶ شاهد المزيد على إنستغرام">▶ Watch more on Instagram</a></p>
 </div></section>
@@ -185,6 +188,13 @@ setLang(sv=="ar"?"ar":"en");
 var u="https://api.whatsapp.com/send?phone="+WA+"&text="+encodeURIComponent("Hello Buckets & Buckets, I would like to order"),fr=false;
 try{fr=window.self!==window.top}catch(e){fr=true}
 document.querySelectorAll(".wl").forEach(function(a){a.href=u;a.rel="noopener";if(fr)a.target="_blank";a.style.display=a.id=="wa"?"block":"inline-block"});
+
+document.querySelectorAll(".rl").forEach(function(w){var v=w.querySelector("video"),b=w.querySelector(".pl");
+ b.onclick=function(){
+  if(v.dataset.d&&!v.getAttribute("src")){var bin=atob(v.dataset.d),n=bin.length,u=new Uint8Array(n);for(var i=0;i<n;i++)u[i]=bin.charCodeAt(i);v.src=URL.createObjectURL(new Blob([u],{type:"video/mp4"}));v.removeAttribute("data-d");}
+  v.controls=true;b.style.display="none";var p=v.play();if(p&&p.catch)p.catch(function(){b.style.display="flex"});};
+ v.addEventListener("ended",function(){b.style.display="flex"});
+});
 </script>
 </body>
 </html>
