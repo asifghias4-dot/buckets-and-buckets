@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://buckets-and-buckets.github.io/buckets-and-buckets/sitemap.xml
